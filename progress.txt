@@ -1,0 +1,22 @@
+30/01/2023
+    Début du projet
+
+31/01/2023
+    Implémentation des règles de déplacement : tout sauf échec et en passant
+
+01/02/2023 
+    Ajout de l'échec
+
+02/02/2023
+    Quasiment tous les moves sont implémentés, quelques un manque on verra plus tard
+
+03/02/2023
+    Travail sur l'algo de recherche (Alpha beta pruning), pour l'instant ça marche pas vraiment
+
+04/02/2023 
+    Ca marche !! Enfin presque, l'algo évite l'échec et mat (jsp pourquoi) mais sinon ça a l'air de marcher, on a battu le bot à 400 elo de chess.com
+    
+06/02/2023 
+    On a ajouté des openings. 
+    Petit match contre le bot 1000 elo de chess.com qui est perdu. Ca a bien joué jusqu'au tour 20 et après cata. On sent la limite de depth 4 en mid/late game.
+    Après quelques tests y'a des petits soucis d'échecs avec des rois qui peuvent se coller à l'autre??? Faut regarder ça

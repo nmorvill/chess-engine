@@ -1,0 +1,29 @@
+OBJECTIVE 
+1 turns : 20 combinations
+2 turns : 400 combinations
+3 turns : 8902 combinations
+4 turns : 197281 combinations 
+5 turns : 4865609 combinations
+
+31/01/2023 - No optimizations, no check, no en-passant
+
+1 turns : 20 combinations, calculated in 0s 
+2 turns : 400 combinations, calculated in 530.4µs
+3 turns : 8902 combinations, calculated in 2.8296ms
+4 turns : 205930 combinations, calculated in 79.2173ms 
+5 turns : 5100339 combinations, calculated in 1.1621436s 
+
+01/02/2023 - No optimizations, no en-passant
+
+1 turns : 20 combinations, calculated in 0s 
+2 turns : 400 combinations, calculated in 3.8951ms
+3 turns : 8902 combinations, calculated in 85.6737ms 
+4 turns : 197281 combinations, calculated in 1.8835376s  
+5 turns : 4865351 combinations, calculated in 51.5179463s 
+
+02/02/2023 - No optimization
+1 turns : 20 combinations, calculated in 559.1µs 
+2 turns : 400 combinations, calculated in 5.8872ms
+3 turns : 8902 combinations, calculated in 89.0033ms 
+4 turns : 197281 combinations, calculated in 1.9573588s 
+5 turns : 4865609 combinations, calculated in 57.1690129s 

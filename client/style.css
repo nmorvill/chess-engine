@@ -1,0 +1,32 @@
+div {
+    position:absolute;
+}
+
+img {
+    width:64px;
+    height:64px;
+}
+
+.black {
+    background-color:#a3b18a
+}
+
+.white {
+    background-color:#fefae0
+}
+
+.selected.black {
+    background-color:#D1CE45;
+}
+
+.selected.white {
+    background-color: #FFF270;
+}
+
+.possible.white {
+    background-color: #E68C7F;
+}
+
+.possible.black {
+    background-color: #B96754;
+}
