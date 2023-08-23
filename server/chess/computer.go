@@ -1,5 +1,6 @@
 package chess
 
+/*
 import (
 	"fmt"
 	"sort"
@@ -151,3 +152,4 @@ func getOrderedMoves(board Board, moves []Move) []Move {
 	return moves
 
 }
+*/

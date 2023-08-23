@@ -8,7 +8,7 @@ import (
 
 // Source of numbers : https://www.chessprogramming.org/Perft_Results
 
-const StartingPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
+const StartingPos = "rnbqkbnr/1ppppppp/8/p7/Q1P5/8/PP1PPPPP/RNB1KBNR"
 
 func BenchmarkStartingPosDepth1(b *testing.B) { testPos(1, b, 20, StartingPos) }
 func BenchmarkStartingPosDepth2(b *testing.B) { testPos(2, b, 400, StartingPos) }
@@ -25,15 +25,15 @@ func BenchmarkSecondPosDepth4(b *testing.B) { testPos(4, b, 4085603, SecondPos) 
 
 func testPos(depth int, b *testing.B, expectedNumber int, fen string) {
 	var board chess.Board
-	board.ResetBoard()
 	board.SetBoardFromFEN(fen)
+
+	chess.MagicInit()
+	chess.InBetweenInit()
 
 	got := getNumberOfCombinations(board, depth, chess.Black)
 
 	if got != expectedNumber {
-		b.Errorf("Depth of %d = %d; want %d", depth, got, expectedNumber)
-	} else {
-		b.Logf("Depth of %d = %d;", depth, got)
+		b.Errorf("Error, got %d combinations instead of %d", got, expectedNumber)
 	}
 }
 
@@ -43,7 +43,7 @@ func getNumberOfCombinations(aBoard chess.Board, depth int, colorToMove chess.Co
 		return 1
 	}
 
-	moves := chess.GetAllLegalMoves(aBoard, colorToMove)
+	moves := chess.MoveGenerator(aBoard, colorToMove)
 	nbOfPos := 0
 
 	nextColor := chess.Black
@@ -54,11 +54,11 @@ func getNumberOfCombinations(aBoard chess.Board, depth int, colorToMove chess.Co
 
 	startingBoard := aBoard
 	for _, move := range moves {
-		newBoard := chess.MovePiece(startingBoard, move)
+		newBoard := chess.MovePiece(startingBoard, move, colorToMove)
 		newNbOfPos := getNumberOfCombinations(newBoard, depth-1, nextColor)
 		nbOfPos += newNbOfPos
-		if depth == 2 {
-			fmt.Printf("%s: %d\n", chess.GetUCIFromMove(move), newNbOfPos)
+		if depth == 1 {
+			fmt.Println(move, newNbOfPos)
 		}
 	}
 

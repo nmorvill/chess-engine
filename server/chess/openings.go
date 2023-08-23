@@ -1,5 +1,6 @@
 package chess
 
+/*
 import (
 	"bufio"
 	"fmt"
@@ -73,3 +74,4 @@ func getOpeningMove(movesDone []Move) Move {
 	return Move{}
 
 }
+*/

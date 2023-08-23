@@ -1,27 +1,31 @@
 package chess
 
-import "unicode"
-
-type Piece int
-
-const (
-	King   Piece = 1
-	Queen  Piece = 2
-	Rook   Piece = 3
-	Bishop Piece = 4
-	Knight Piece = 5
-	Pawn   Piece = 6
+import (
+	"fmt"
+	"unicode"
 )
 
-type Color int
+type PieceType int8
+type Color int8
 
 const (
-	White Color = 8
-	Black Color = 16
+	King   PieceType = 0
+	Queen  PieceType = 1
+	Rook   PieceType = 2
+	Bishop PieceType = 3
+	Knight PieceType = 4
+	Pawn   PieceType = 5
 )
 
-func GetPieceCodeFromFEN(c rune) int {
-	piecesCode := map[rune]Piece{
+const (
+	White Color = 0
+	Black Color = 6
+)
+
+var piecesName = [...]string{"King", "Queen", "Rook", "Bishop", "Knight", "Pawn"}
+
+func GetPieceTypeFromFen(c rune) PieceType {
+	piecesCode := map[rune]PieceType{
 		'k': King,
 		'q': Queen,
 		'r': Rook,
@@ -30,13 +34,14 @@ func GetPieceCodeFromFEN(c rune) int {
 		'p': Pawn,
 	}
 
-	ret := int(piecesCode[unicode.ToLower(c)])
+	return piecesCode[unicode.ToLower(c)]
+}
 
+func GetColorFromFen(c rune) Color {
 	if unicode.IsLower(c) {
-		ret += 6
+		return Black
 	}
-
-	return ret
+	return White
 }
 
 func getOppositeColor(color Color) Color {
@@ -45,4 +50,8 @@ func getOppositeColor(color Color) Color {
 	} else {
 		return White
 	}
+}
+
+func (p PieceType) String() string {
+	return fmt.Sprintf(piecesName[p])
 }

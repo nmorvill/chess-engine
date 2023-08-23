@@ -2,42 +2,53 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"net/http"
-	"os"
 	chess "server/chess"
-	"strconv"
-	"time"
 )
 
 var board chess.Board
 
 func main() {
 
-	board.ResetBoard()
-
 	fmt.Printf("Reading opening files \n")
-	chess.LoadOpeningsFile()
 
 	launchServer()
 }
 
 func launchServer() {
 	http.HandleFunc("/", getRoot)
-	http.HandleFunc("/pieceSelected", getPieceSelected)
-	http.HandleFunc("/move", getMove)
-	http.HandleFunc("/computerMove", getComputerMove)
+	chess.MagicInit()
+	board.SetBoardFromFEN("rnbqkbnr/ppppppp1/7p/1B6/4P3/8/PPPP1PPP/RNBQK1NR")
 
-	fmt.Printf("Launching server \n")
+	fmt.Println(chess.VisualizeBitBoard(board.GetPinnedPieces(chess.Black)))
+	fmt.Println(chess.VisualizeBitBoard(board.GetPinnedPieces(chess.White)))
 
-	err := http.ListenAndServe(":44240", nil)
-	if errors.Is(err, http.ErrServerClosed) {
-		fmt.Printf("server closed\n")
-	} else if err != nil {
-		fmt.Printf("error starting server: %s\n", err)
-		os.Exit(1)
+	for i := 0; i < 64; i++ {
 	}
+
+	/*
+		chess.MagicInit()
+
+		moves := chess.MoveGenerator(board, chess.Black)
+		fmt.Println(len(moves))
+	*/
+
+	/*
+			http.HandleFunc("/pieceSelected", getPieceSelected)
+			http.HandleFunc("/move", getMove)
+			http.HandleFunc("/computerMove", getComputerMove)
+
+		fmt.Printf("Launching server \n")
+
+		err := http.ListenAndServe(":44240", nil)
+		if errors.Is(err, http.ErrServerClosed) {
+			fmt.Printf("server closed\n")
+		} else if err != nil {
+			fmt.Printf("error starting server: %s\n", err)
+			os.Exit(1)
+		}
+	*/
 
 }
 
@@ -46,11 +57,12 @@ func getRoot(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	fmt.Println("Init board")
-	board.SetBoardFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
+	board.SetBoardFromFEN("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R")
 
-	json.NewEncoder(w).Encode(board.Board)
+	json.NewEncoder(w).Encode(chess.GetArrayFromBitboard(board))
 }
 
+/*
 func getMove(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -91,3 +103,4 @@ func getComputerMove(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(board.Board)
 }
+*/
